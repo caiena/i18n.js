@@ -1,0 +1,47 @@
+{
+  "name": "@caiena/i18n",
+  "version": "0.1.0",
+  "description": "Internationalization for your data",
+  "main": "dist/i18n.cjs.js",
+  "module": "dist/i18n.esm.js",
+  "browser": "dist/i18n.umd.js",
+  "dependencies": {
+    "@caiena/lodash-ext": "^0.4.0",
+    "i18n-js": "^3.2.1",
+    "moment": "^2.24.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "@babel/polyfill": "^7.2.5",
+    "@babel/preset-env": "^7.2.3",
+    "@babel/register": "^7.0.0",
+    "chai": "^4.2.0",
+    "chai-as-promised": "^7.1.1",
+    "chai-change": "^2.1.2",
+    "chai-datetime": "^1.5.0",
+    "chai-subset": "^1.6.0",
+    "js-yaml": "^3.12.2",
+    "mocha": "^6.0.0",
+    "node-watch": "^0.6.0",
+    "pryjs": "^1.0.3",
+    "rollup": "^1.0.0",
+    "rollup-plugin-babel": "^4.2.0",
+    "rollup-plugin-commonjs": "^9.2.0",
+    "rollup-plugin-local-resolve": "^1.0.7",
+    "rollup-plugin-node-resolve": "^4.0.0",
+    "sinon": "^7.2.4",
+    "sinon-chai": "^3.3.0"
+  },
+  "scripts": {
+    "prebuild": "rm -rf ./dist/*",
+    "build": "rollup -c",
+    "dev": "rollup -c -w",
+    "pretest": "npm run build",
+    "test": "mocha --exit",
+    "test:all": "mocha --exit \"test/**/*.spec.js\"",
+    "test:watch": "node ./bin/mocha-watch"
+  },
+  "files": [
+    "dist"
+  ]
+}

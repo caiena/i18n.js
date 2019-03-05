@@ -1,0 +1,123 @@
+# https://github.com/svenfuchs/rails-i18n/blob/master/rails/locale/en-US.yml
+---
+
+en-US:
+  date:
+    abbr_day_names:
+      - Sun
+      - Mon
+      - Tue
+      - Wed
+      - Thu
+      - Fri
+      - Sat
+    abbr_month_names:
+      -
+      - Jan
+      - Feb
+      - Mar
+      - Apr
+      - May
+      - Jun
+      - Jul
+      - Aug
+      - Sep
+      - Oct
+      - Nov
+      - Dec
+    day_names:
+      - Sunday
+      - Monday
+      - Tuesday
+      - Wednesday
+      - Thursday
+      - Friday
+      - Saturday
+    formats:
+      default: "%m/%d/%Y"
+      normal: "%b %d, %Y"
+      long: "%B %d, %Y"
+      short: "%b %d, %Y"
+      iso: '%Y-%m-%d'
+      week: '%A'
+    month_names:
+      -
+      - January
+      - February
+      - March
+      - April
+      - May
+      - June
+      - July
+      - August
+      - September
+      - October
+      - November
+      - December
+    order:
+      - :month
+      - :day
+      - :year
+  number:
+    currency:
+      format:
+        delimiter: ","
+        format: "%u%n"
+        precision: 2
+        separator: "."
+        significant: false
+        strip_insignificant_zeros: false
+        unit: "$"
+    format:
+      delimiter: ","
+      precision: 3
+      separator: "."
+      significant: false
+      strip_insignificant_zeros: false
+    human:
+      decimal_units:
+        format: "%n %u"
+        units:
+          billion: Billion
+          million: Million
+          quadrillion: Quadrillion
+          thousand: Thousand
+          trillion: Trillion
+          unit: ''
+      format:
+        delimiter: ''
+        precision: 3
+        significant: true
+        strip_insignificant_zeros: true
+      storage_units:
+        format: "%n %u"
+        units:
+          byte:
+            one: Byte
+            other: Bytes
+          gb: GB
+          kb: KB
+          mb: MB
+          tb: TB
+    percentage:
+      format:
+        delimiter: ''
+        format: "%n%"
+    precision:
+      format:
+        delimiter: ''
+  support:
+    array:
+      # last_word_connector: ", and "
+      last_word_connector: " and "
+      two_words_connector: " and "
+      words_connector: ", "
+  time:
+    am: AM
+    formats:
+      default: "%b %d, %Y %I:%M %p"
+      simple: "%b %d %I:%M %p"
+      long: "%B %d, %Y %I:%M %p"
+      short: "%I:%M %p"
+      iso: '%Y-%m-%dT%H:%M:%S%z'
+    pm: PM
