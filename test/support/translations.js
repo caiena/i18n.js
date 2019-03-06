@@ -1,14 +1,25 @@
 const yaml = require('js-yaml')
+const glob = require('glob')
 const fs   = require('fs')
 const _    = require('@caiena/lodash-ext')
 
 
-// Get document, or throw exception on error
+// global translation object (with entries per-locale)
 const translations = {}
-const enUS = yaml.safeLoad(fs.readFileSync(`${__dirname}/../../src/translations/core.en-US.yml`, 'utf8'))
-const ptBR = yaml.safeLoad(fs.readFileSync(`${__dirname}/../../src/translations/core.pt-BR.yml`, 'utf8'))
 
-_.merge(translations, enUS)
-_.merge(translations, ptBR)
+// reading yaml files recursively, per-locale
+_.each(['en-US', 'pt-BR'], (locale) => {
+  let localeTranslations = {}
+
+  _.each(glob.sync(`${__dirname}/../../src/translations/**/*.${locale}.yml`), (path) => {
+    let fileYamlContent = yaml.safeLoad(fs.readFileSync(path, 'utf8'))
+
+    _.merge(localeTranslations, fileYamlContent)
+  })
+
+  // merge locale translations to global translation object
+  _.merge(translations, localeTranslations)
+})
+
 
 module.exports = translations
