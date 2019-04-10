@@ -1,5 +1,5 @@
-import i18n        from '../../src/i18n'
-import translations from '../support/translations'
+import i18n         from '../../src/i18n'
+import translations from '../../src/config/i18n/translations'
 
 
 describe('Init mixin', () => {

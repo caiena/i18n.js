@@ -19227,7 +19227,100 @@
 	FixLocalize,
 	Init]);
 
+	var _meta = createCommonjsModule(function (module) {
+	var META = _uid('meta');
+
+
+	var setDesc = _objectDp.f;
+	var id = 0;
+	var isExtensible = Object.isExtensible || function () {
+	  return true;
+	};
+	var FREEZE = !_fails(function () {
+	  return isExtensible(Object.preventExtensions({}));
+	});
+	var setMeta = function (it) {
+	  setDesc(it, META, { value: {
+	    i: 'O' + ++id, // object ID
+	    w: {}          // weak collections IDs
+	  } });
+	};
+	var fastKey = function (it, create) {
+	  // return primitive with prefix
+	  if (!_isObject(it)) return typeof it == 'symbol' ? it : (typeof it == 'string' ? 'S' : 'P') + it;
+	  if (!_has(it, META)) {
+	    // can't set metadata to uncaught frozen object
+	    if (!isExtensible(it)) return 'F';
+	    // not necessary to add metadata
+	    if (!create) return 'E';
+	    // add missing metadata
+	    setMeta(it);
+	  // return object ID
+	  } return it[META].i;
+	};
+	var getWeak = function (it, create) {
+	  if (!_has(it, META)) {
+	    // can't set metadata to uncaught frozen object
+	    if (!isExtensible(it)) return true;
+	    // not necessary to add metadata
+	    if (!create) return false;
+	    // add missing metadata
+	    setMeta(it);
+	  // return hash weak collections IDs
+	  } return it[META].w;
+	};
+	// add metadata on freeze-family methods calling
+	var onFreeze = function (it) {
+	  if (FREEZE && meta.NEED && isExtensible(it) && !_has(it, META)) setMeta(it);
+	  return it;
+	};
+	var meta = module.exports = {
+	  KEY: META,
+	  NEED: false,
+	  fastKey: fastKey,
+	  getWeak: getWeak,
+	  onFreeze: onFreeze
+	};
+	});
+	var _meta_1 = _meta.KEY;
+	var _meta_2 = _meta.NEED;
+	var _meta_3 = _meta.fastKey;
+	var _meta_4 = _meta.getWeak;
+	var _meta_5 = _meta.onFreeze;
+
+	// most Object methods by ES6 should accept primitives
+
+
+
+	var _objectSap = function (KEY, exec) {
+	  var fn = (_core.Object || {})[KEY] || Object[KEY];
+	  var exp = {};
+	  exp[KEY] = exec(fn);
+	  _export(_export.S + _export.F * _fails(function () { fn(1); }), 'Object', exp);
+	};
+
+	// 19.1.2.5 Object.freeze(O)
+
+	var meta = _meta.onFreeze;
+
+	_objectSap('freeze', function ($freeze) {
+	  return function freeze(it) {
+	    return $freeze && _isObject(it) ? $freeze(meta(it)) : it;
+	  };
+	});
+
+	var _contents_coreEnUS = { "en-US": { date: { abbr_day_names: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"], abbr_month_names: [null, "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"], day_names: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"], formats: { "default": "%m/%d/%Y", normal: "%b %d, %Y", long: "%B %d, %Y", short: "%b %d, %Y", iso: "%Y-%m-%d", week: "%A" }, month_names: [null, "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"], order: [":month", ":day", ":year"] }, number: { currency: { format: { delimiter: ",", format: "%u%n", precision: 2, separator: ".", significant: false, strip_insignificant_zeros: false, unit: "$" } }, format: { delimiter: ",", precision: 3, separator: ".", significant: false, strip_insignificant_zeros: false }, human: { decimal_units: { format: "%n %u", units: { billion: "Billion", million: "Million", quadrillion: "Quadrillion", thousand: "Thousand", trillion: "Trillion", unit: "" } }, format: { delimiter: "", precision: 3, significant: true, strip_insignificant_zeros: true }, storage_units: { format: "%n %u", units: { byte: { one: "Byte", other: "Bytes" }, gb: "GB", kb: "KB", mb: "MB", tb: "TB" } } }, percentage: { format: { delimiter: "", format: "%n%" } }, precision: { format: { delimiter: "" } } }, support: { array: { last_word_connector: " and ", two_words_connector: " and ", words_connector: ", " } }, time: { am: "AM", formats: { "default": "%b %d, %Y %I:%M %p", simple: "%b %d %I:%M %p", long: "%B %d, %Y %I:%M %p", short: "%I:%M %p", iso: "%Y-%m-%dT%H:%M:%S%z" }, pm: "PM" } } };var _contents_corePtBR = { "pt-BR": { date: { abbr_day_names: ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "S\xE1b"], abbr_month_names: [null, "Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"], day_names: ["Domingo", "Segunda-feira", "Ter\xE7a-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "S\xE1bado"], formats: { "default": "%d/%m/%Y", normal: "%d de %b de %Y", long: "%d de %B de %Y", short: "%d de %b", iso: "%Y-%m-%d", week: "%A" }, month_names: [null, "Janeiro", "Fevereiro", "Mar\xE7o", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"], order: [":day", ":month", ":year"] }, number: { currency: { format: { delimiter: ".", format: "%u %n", precision: 2, separator: ",", significant: false, strip_insignificant_zeros: false, unit: "R$" } }, format: { delimiter: ".", precision: 3, separator: ",", significant: false, strip_insignificant_zeros: false }, human: { decimal_units: { format: "%n %u", units: { billion: { one: "bilh\xE3o", other: "bilh\xF5es" }, million: { one: "milh\xE3o", other: "milh\xF5es" }, quadrillion: { one: "quatrilh\xE3o", other: "quatrilh\xF5es" }, thousand: "mil", trillion: { one: "trilh\xE3o", other: "trilh\xF5es" }, unit: "" } }, format: { delimiter: "", precision: 3, significant: true, strip_insignificant_zeros: true }, storage_units: { format: "%n %u", units: { byte: { one: "Byte", other: "Bytes" }, gb: "GB", kb: "KB", mb: "MB", tb: "TB" } } }, percentage: { format: { delimiter: ".", format: "%n%u", precision: 2, separator: ",", unit: "%" } } }, support: { array: { last_word_connector: " e ", two_words_connector: " e ", words_connector: ", " } }, time: { am: "", formats: { "default": "%a, %d de %B de %Y \xE0s %H:%M:%S", simple: "%d de %B de %Y \xE0s %H:%M", long: "%d de %B de %Y \xE0s %H:%M", short: "%H:%M", iso: "%Y-%m-%dT%H:%M:%S%z" }, pm: "" } } };var contents = { coreEnUS: _contents_coreEnUS, corePtBR: _contents_corePtBR };Object.freeze(contents);var namespacedContents = {};Object.freeze(namespacedContents);
+
+
+
+
+	var translations = {};
+
+	lodashExt.each(contents, function (content, _id) {lodashExt.merge(translations, content);});
+	lodashExt.each(namespacedContents, function (content, _id) {lodashExt.merge(translations, content);});
+
 	exports.i18n = i18n$1;
+	exports.translations = translations;
 
 	Object.defineProperty(exports, '__esModule', { value: true });
 

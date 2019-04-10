@@ -1,10 +1,12 @@
-import i18n         from '../../src/i18n'
-import translations from '../support/translations'
+import i18n from '../support/i18n'
 
 
 describe('Sentence mixin', () => {
-  i18n.init({ locales: ['pt-BR', 'en-US'], defaultLocale: 'pt-BR', translations })
-
+  // TIP: If you need to change the locale, use the snippet below
+  // ---
+  // let $i18nLocale = i18n.locale
+  // before(() => { i18n.locale = 'pt-BR' })
+  // after(() => { i18n.locale = $i18nLocale })
 
   context('i18n.toSentence()', () => {
     context('with one word', () => {
