@@ -1,2 +1,3 @@
-# Model.js
-Model to define and control your data.
+# i18n.js
+Translate and localize your data.
+Relying on i18n-js.
