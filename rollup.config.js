@@ -9,7 +9,6 @@ import pkg from './package.json'
 // node path
 import path from 'path'
 
-
 export default [
   // browser-friendly UMD build
   {
@@ -47,7 +46,7 @@ export default [
     input: 'src/index.js',
     external: ['@caiena/lodash-ext'],
     output: [
-      // { file: pkg.main,   format: 'cjs', sourcemap: true },
+      { file: pkg.module.replace('.esm.js', '.cjs.js'), format: 'cjs', sourcemap: true },
       { file: pkg.module, format: 'es',  sourcemap: true }
     ],
     plugins: [
