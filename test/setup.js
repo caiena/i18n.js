@@ -7,7 +7,6 @@ import chai from 'chai'
 import chaiAsPromised from 'chai-as-promised'
 import chaiChange from 'chai-change'
 import chaiDatetime from 'chai-datetime'
-// import chaiMoment from 'chai-moment'
 // import chaiHttp from 'chai-http'
 import chaiSubset from 'chai-subset'
 
@@ -21,7 +20,6 @@ chai.use(chaiAsPromised)
 chai.use(chaiChange)
 chai.use(chaiDatetime)
 // chai.use(chaiHttp)
-// chai.use(chaiMoment)
 chai.use(chaiSubset)
 chai.use(sinonChai)
 
