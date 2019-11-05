@@ -2,9 +2,8 @@
   "name": "@caiena/i18n",
   "version": "0.1.0",
   "description": "Internationalization for your data",
-  "main": "dist/i18n.cjs.js",
+  "main": "dist/i18n.umd.js",
   "module": "dist/i18n.esm.js",
-  "browser": "dist/i18n.umd.js",
   "dependencies": {
     "@caiena/lodash-ext": "^0.4.0",
     "i18n-js": "^3.2.1",

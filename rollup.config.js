@@ -16,7 +16,7 @@ export default [
     input: 'src/index.js',
     output: {
       name: 'i18n',
-      file: pkg.browser,
+      file: pkg.main,
       format: 'umd',
       sourcemap: true
     },
@@ -47,7 +47,7 @@ export default [
     input: 'src/index.js',
     external: ['@caiena/lodash-ext', 'moment'],
     output: [
-      { file: pkg.main,   format: 'cjs', sourcemap: true },
+      // { file: pkg.main,   format: 'cjs', sourcemap: true },
       { file: pkg.module, format: 'es',  sourcemap: true }
     ],
     plugins: [
