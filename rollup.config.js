@@ -17,8 +17,7 @@ export default [
     output: {
       name: 'i18n',
       file: pkg.browser,
-      format: 'umd',
-      sourcemap: true
+      format: 'umd'
     },
     plugins: [
       yaml(),
@@ -30,25 +29,16 @@ export default [
       }),
       resolve(), // so Rollup can find dependencies (e.g. `lodash`)
       commonjs(), // so Rollup can convert dependencies (e.g. `lodash`) to an ES module
-      localResolve(),
-      babel({
-        exclude: ['node_modules/**']
-      })
+      babel()
     ]
   },
 
   // CommonJS (for Node) and ES module (for bundlers) build.
-  // (We could have three entries in the configuration array
-  // instead of two, but it's quicker to generate multiple
-  // builds from a single configuration where possible, using
-  // an array for the `output` option, where we can specify
-  // `file` and `format` for each target)
   {
     input: 'src/index.js',
-    external: ['@caiena/lodash-ext', 'moment'],
+    external: ['@caiena/lodash-ext', 'i18n-js', 'moment'],
     output: [
-      { file: pkg.main,   format: 'cjs', sourcemap: true },
-      { file: pkg.module, format: 'es',  sourcemap: true }
+      { file: pkg.main, format: 'cjs' },
     ],
     plugins: [
       yaml(),
@@ -58,10 +48,40 @@ export default [
           return `${path.relative(__dirname, id)}/${name}`.replace(/[^\w]/g, '_')
         }
       }),
-      localResolve(), // allowing import of index.js files from directory name
-      babel({
-        exclude: ['node_modules/**']
+      localResolve(),
+      babel({     // overriding babel.config.js, targeting node specifically
+        presets: [[
+          "@babel/preset-env", {
+            targets: {
+              node: "8"
+            }
+          }
+        ]]
+      })
+    ]
+  },
+
+
+  // and ES module (for bundlers) build.
+  {
+    input: 'src/index.js',
+    external: ['@caiena/lodash-ext', 'i18n-js', 'moment'],
+    output: {
+      file: pkg.module,
+      format: 'es'
+    },
+    plugins: [
+      yaml(),
+      glob({
+        format: 'default',  // required for yaml plugin to work!
+        rename(name, id) {
+          return `${path.relative(__dirname, id)}/${name}`.replace(/[^\w]/g, '_')
+        }
       }),
+      commonjs(), // so Rollup can transform dependencies in CommonJS to ESM
+      localResolve(),
+      babel(),    // uses default config in babel.config.js (targeting browsers)
     ]
   }
+
 ];
