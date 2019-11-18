@@ -1,6 +1,9 @@
 import _ from '@caiena/lodash-ext';
 import _i18n from 'i18n-js';
-import 'core-js/modules/es6.object.freeze';
+import 'core-js/modules/es.array.concat';
+import 'core-js/modules/es.array.join';
+import 'core-js/modules/es.array.slice';
+import 'core-js/modules/es.object.freeze';
 
 function mixin(obj, mixins) {
   return mixins.reduce(function (mixedObj, mixinFn) {return mixinFn(mixedObj);}, obj);
@@ -109,4 +112,3 @@ _.each(contents, function (content, _id) {_.merge(translations, content);});
 _.each(namespacedContents, function (content, _id) {_.merge(translations, content);});
 
 export { i18n, translations };
-//# sourceMappingURL=i18n.esm.js.map
