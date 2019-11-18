@@ -36,7 +36,7 @@ export default [
   // CommonJS (for Node) and ES module (for bundlers) build.
   {
     input: 'src/index.js',
-    external: ['@caiena/lodash-ext', 'i18n-js'],
+    external: ['@caiena/lodash-ext', 'i18n-js', 'moment'],
     output: [
       { file: pkg.main, format: 'cjs' },
     ],
@@ -65,7 +65,7 @@ export default [
   // and ES module (for bundlers) build.
   {
     input: 'src/index.js',
-    external: ['@caiena/lodash-ext', 'i18n-js'],
+    external: ['@caiena/lodash-ext', 'i18n-js', 'moment'],
     output: {
       file: pkg.module,
       format: 'es'
