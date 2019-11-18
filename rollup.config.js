@@ -11,7 +11,7 @@ import path from 'path'
 
 
 export default [
-  // // browser-friendly UMD build
+  // browser-friendly UMD build
   {
     input: 'src/index.js',
     output: {
