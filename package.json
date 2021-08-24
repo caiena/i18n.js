@@ -13,7 +13,8 @@
     "pretest:all": "yarn run build",
     "test": "mocha --exit",
     "test:all": "mocha --exit \"test/**/*.spec.js\"",
-    "test:watch": "node ./bin/mocha-watch"
+    "test:watch": "mocha --watch",
+    "//test:watch": "node ./bin/mocha-watch"
   },
   "files": [
     "dist"
