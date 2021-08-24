@@ -1,5 +1,5 @@
 module.exports = {
-  exclude: ['node_modules/**'],
+  // exclude: ['node_modules/**'],
   presets: [
     [
       '@babel/preset-env', {
@@ -21,6 +21,6 @@ module.exports = {
   ],
 
   // @see https://github.com/Microsoft/vscode/issues/5728#issuecomment-340219041
-  sourceMaps: "inline",
+  sourceMaps:  "inline",
   retainLines: true
 }
