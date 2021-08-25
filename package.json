@@ -6,6 +6,7 @@
   "module": "dist/i18n.esm.js",
   "browser": "dist/i18n.umd.js",
   "scripts": {
+    "console": "node ./bin/console",
     "prebuild": "rm -rf ./dist/*",
     "build": "rollup -c",
     "dev": "rollup -c -w",
