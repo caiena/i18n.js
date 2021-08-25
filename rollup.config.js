@@ -6,6 +6,7 @@ import json        from "@rollup/plugin-json"
 import yaml        from "@rollup/plugin-yaml"
 
 import glob from "rollup-plugin-glob-import"
+import { terser }   from "rollup-plugin-terser"
 
 import path from "path"
 import pkg  from "./package.json"
@@ -16,12 +17,12 @@ paths.src    = path.resolve(paths.root, "src")
 
 
 const plugins = [
+  nodeResolve(),
+  commonjs(),
   babel({
     babelHelpers: "bundled",
     exclude:      ["node_modules/**"]
   }),
-  nodeResolve(),
-  commonjs(),
   alias({
     resolve: [".js" /*, ".vue" */],
     entries: {
@@ -46,10 +47,23 @@ export default [
     output: {
       name: "i18n",
       file: pkg.browser,
-      format: "umd",
-      sourcemap: true
+      format: "umd"
+      // sourcemap: true
     },
     plugins
+  },
+  { // minified UMD build!
+    input: 'src/index.js',
+    output: {
+      name: 'i18n',
+      file: pkg.browser.replace('.js', '.min.js'),
+      format: 'umd'
+      // sourcemap: true
+    },
+    plugins: [
+      ...plugins,
+      terser() // minify js
+    ]
   },
 
   // CommonJS (for Node) and ES module (for bundlers) build.
@@ -64,4 +78,4 @@ export default [
     ],
     plugins
   }
-];
+]
