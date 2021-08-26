@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const path = require('path');
+const path = require('path')
 const distDir = path.join(__dirname, '..', '..', 'dist')
 
 let { i18n, translations } = require(path.join(distDir, 'i18n.cjs.js'))

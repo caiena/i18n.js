@@ -47,9 +47,15 @@ export default [
     output: {
       name: "i18n",
       file: pkg.browser,
-      format: "umd"
-      // sourcemap: true
+      format: "umd",
+      sourcemap: true,
+      globals: {
+        "@caiena/lodash-ext": "_"
+      }
     },
+    external: [
+      "@caiena/lodash-ext"
+    ],
     plugins
   },
   { // minified UMD build!
@@ -57,9 +63,15 @@ export default [
     output: {
       name: 'i18n',
       file: pkg.browser.replace('.js', '.min.js'),
-      format: 'umd'
-      // sourcemap: true
+      format: 'umd',
+      sourcemap: true,
+      globals: {
+        "@caiena/lodash-ext": "_"
+      }
     },
+    external: [
+      "@caiena/lodash-ext"
+    ],
     plugins: [
       ...plugins,
       terser() // minify js

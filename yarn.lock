@@ -886,8 +886,10 @@
     "@babel/helper-validator-identifier" "^7.14.9"
     to-fast-properties "^2.0.0"
 
-"@caiena/lodash-ext@file:../lodash-ext":
-  version "0.10.0"
+"@caiena/lodash-ext@^0.11.0":
+  version "0.11.1"
+  resolved "https://registry.yarnpkg.com/@caiena/lodash-ext/-/lodash-ext-0.11.1.tgz#c5bc51f953e0f684bae38c778df7f0e790f264b9"
+  integrity sha512-GnjEYWLW/CSYh7Mkg9G+kjMeycLMXaqH4m0ahmygZVPpLAsmUouy0I+uVgBTdeCRUSApZzxqCDqq3tI170UG6w==
   dependencies:
     lodash "^4.17.21"
 
