@@ -16,14 +16,35 @@
 </head>
 
 <body>
-  <script src="lodash-ext.umd.js"></script>
+  <!--
+    requires global @caiena/lodash-ext
+    loading directly from github. @see https://stackoverflow.com/a/18049842
+    - http://raw.githubusercontent.com/<username>/<repo>/<branch>/path/to/file.js
+    - becomes http://cdn.jsdelivr.net/gh/<username>/<repo>/path/to/file.js
+
+    <script src="https://raw.githubusercontent.com/caiena/lodash-ext/v0.11.1/dist/lodash-ext.umd.min.js"></script>
+  -->
+  <script src="http://cdn.jsdelivr.net/gh/caiena/lodash-ext@v0.11.1/dist/lodash-ext.umd.min.js"></script>
+  <script src="i18n.umd.js"></script>
   <script>
-      var p = document.createElement('p');
-      var content = Object.keys(_).sort().join(', ')
+      var pre = document.createElement('pre');
+      var $i18n = window.i18n.i18n
 
-      p.innerHTML = content
+      $i18n.init({
+        locales: ['pt-BR', 'en-US'],
+        defaultLocale: 'pt-BR',
+        translations: window.i18n.translations
+      })
 
-      document.body.appendChild(p)
+      var content = `
+        locale: ${$i18n.locale}
+        sample currenty: ${$i18n.l("currency", 1990.99)}
+        sample date: ${$i18n.l("date.formats.short", "2009-09-18")}
+      `
+
+      pre.innerHTML = content
+
+      document.body.appendChild(pre)
   </script>
 </body>
 </html>

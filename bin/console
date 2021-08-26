@@ -35,6 +35,9 @@ let r = repl.start({
 })
 
 // requiring itself
-r.context.model = require('../dist/model.cjs.js')
+let { i18n, translations } = require("../dist/i18n.cjs.js")
+i18n.init({ locales: ['pt-BR', 'en-US'], defaultLocale: 'pt-BR', translations })
+
+r.context.i18n = i18n
 
 // add your dependencies here as you wish..

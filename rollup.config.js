@@ -1,87 +1,93 @@
-import localResolve from 'rollup-plugin-local-resolve'
-import resolve from 'rollup-plugin-node-resolve'
-import commonjs from 'rollup-plugin-commonjs'
-import babel from 'rollup-plugin-babel'
-import glob from 'rollup-plugin-glob-import'
-import yaml from 'rollup-plugin-yaml'
-import pkg from './package.json'
+import nodeResolve from "@rollup/plugin-node-resolve"
+import commonjs    from "@rollup/plugin-commonjs"
+import babel       from "@rollup/plugin-babel"
+import alias       from "@rollup/plugin-alias"
+import json        from "@rollup/plugin-json"
+import yaml        from "@rollup/plugin-yaml"
 
-// node path
-import path from 'path'
+import glob from "rollup-plugin-glob-import"
+import { terser }   from "rollup-plugin-terser"
+
+import path from "path"
+import pkg  from "./package.json"
+
+let paths  = {}
+paths.root   = path.resolve(__dirname)
+paths.src    = path.resolve(paths.root, "src")
+
+
+const plugins = [
+  nodeResolve(),
+  commonjs(),
+  babel({
+    babelHelpers: "bundled",
+    exclude:      ["node_modules/**"]
+  }),
+  alias({
+    resolve: [".js" /*, ".vue" */],
+    entries: {
+      "@": paths.src
+    }
+  }),
+  json(),
+  yaml(),
+  glob({
+    format: "default",  // required for yaml plugin to work!
+    rename(name, id) {
+      return `${path.relative(__dirname, id)}/${name}`.replace(/[^\w]/g, "_")
+    }
+  })
+]
 
 
 export default [
   // browser-friendly UMD build
   {
+    input: "src/index.js",
+    output: {
+      name: "i18n",
+      file: pkg.browser,
+      format: "umd",
+      sourcemap: true,
+      globals: {
+        "@caiena/lodash-ext": "_"
+      }
+    },
+    external: [
+      "@caiena/lodash-ext"
+    ],
+    plugins
+  },
+  { // minified UMD build!
     input: 'src/index.js',
     output: {
       name: 'i18n',
-      file: pkg.browser,
-      format: 'umd'
+      file: pkg.browser.replace('.js', '.min.js'),
+      format: 'umd',
+      sourcemap: true,
+      globals: {
+        "@caiena/lodash-ext": "_"
+      }
     },
+    external: [
+      "@caiena/lodash-ext"
+    ],
     plugins: [
-      yaml(),
-      glob({
-        format: 'default',  // required for yaml plugin to work!
-        rename(name, id) {
-          return `${path.relative(__dirname, id)}/${name}`.replace(/[^\w]/g, '_')
-        }
-      }),
-      resolve(), // so Rollup can find dependencies (e.g. `lodash`)
-      commonjs(), // so Rollup can convert dependencies (e.g. `lodash`) to an ES module
-      babel()
+      ...plugins,
+      terser() // minify js
     ]
   },
 
   // CommonJS (for Node) and ES module (for bundlers) build.
   {
-    input: 'src/index.js',
-    external: ['@caiena/lodash-ext', 'i18n-js', 'moment'],
+    input: "src/index.js",
     output: [
-      { file: pkg.main, format: 'cjs' },
+      { file: pkg.main,   format: "cjs", sourcemap: true },
+      { file: pkg.module, format: "es",  sourcemap: true }
     ],
-    plugins: [
-      yaml(),
-      glob({
-        format: 'default',  // required for yaml plugin to work!
-        rename(name, id) {
-          return `${path.relative(__dirname, id)}/${name}`.replace(/[^\w]/g, '_')
-        }
-      }),
-      localResolve(),
-      babel({     // overriding babel.config.js, targeting node specifically
-        presets: [[
-          "@babel/preset-env", {
-            targets: {
-              node: "8"
-            }
-          }
-        ]]
-      })
-    ]
-  },
-
-
-  // and ES module (for bundlers) build.
-  {
-    input: 'src/index.js',
-    external: ['@caiena/lodash-ext', 'i18n-js', 'moment'],
-    output: {
-      file: pkg.module,
-      format: 'es'
-    },
-    plugins: [
-      yaml(),
-      glob({
-        format: 'default',  // required for yaml plugin to work!
-        rename(name, id) {
-          return `${path.relative(__dirname, id)}/${name}`.replace(/[^\w]/g, '_')
-        }
-      }),
-      commonjs(), // so Rollup can transform dependencies in CommonJS to ESM
-      localResolve(),
-      babel(),    // uses default config in babel.config.js (targeting browsers)
-    ]
+    external: [
+      "@caiena/lodash-ext"
+    ],
+    plugins
   }
-
-];
+]
