@@ -1,7 +1,16 @@
 # Releasing
 
+## setup
+
+- `npm install -g npm@9.1.2`
+- `npm install`
+- `npm run build`
+- `npm run test`
+
+
 ## pre-testing
-- `yarn run build`
+
+- `npm run build`
 - `bin/console`
   - enter the node REPL and interact with `i18n`, which is available globally
   - sample: `i18n.l("currency", 1990.99)` should output `"R$ 1.990,99"` (`pt-BR` locale!)
@@ -9,6 +18,18 @@
 
 
 ## publishing
+
+- edit `package.json`, bumping version
+- `git commit -m "v1.2.3"`
+- `git tag ${git_tag}`
+- `git push upstream ${release_branch}`
+- `git push upstream --tags`
+- `gh release create ${git_tag} --prerelease --generate-notes`
+- `npm publish --access=public`
+- check on https://www.npmjs.com/settings/caiena/packages
+
+
+_old yarn instructions:_
 - IMPORTANT: do not edit `package.json` file, bumping `version` key, because `yarn publish` will already do that
   - it updates package.json version
   - creates a new git commit with the specified version as the message
